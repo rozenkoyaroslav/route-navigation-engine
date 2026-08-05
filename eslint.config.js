@@ -2,7 +2,11 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist/**', 'coverage/**', 'node_modules/**'] },
+  {
+    // demo/ is a separate package with its own tsconfig and toolchain; the
+    // library's type-aware rules cannot resolve its project.
+    ignores: ['dist/**', 'coverage/**', 'node_modules/**', 'demo/**'],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
