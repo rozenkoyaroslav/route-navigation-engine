@@ -1,16 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  RouteNavigator,
-  bearingDeg,
-  type LocationSample,
-  type NavigationState,
-} from '@engine';
-import {
-  ROUTE,
-  ROUTE_DURATION_SEC,
-  offsetPerpendicular,
-  pointAtFraction,
-} from './route';
+import { RouteNavigator, bearingDeg, type LocationSample, type NavigationState } from '@engine';
+import { ROUTE, ROUTE_DURATION_SEC, offsetPerpendicular, pointAtFraction } from './route';
 import { Map } from './Map';
 
 /** Simulated GPS cadence, matching what a phone typically delivers. */
@@ -61,9 +51,7 @@ export function App() {
 
     if (next.drivingEvent) {
       const e = next.drivingEvent;
-      setEvents((prev) =>
-        [`${e.type} · ${e.peakMps2.toFixed(2)} m/s²`, ...prev].slice(0, 5),
-      );
+      setEvents((prev) => [`${e.type} · ${e.peakMps2.toFixed(2)} m/s²`, ...prev].slice(0, 5));
     }
   }, [driver, speedKph, accuracyMeters, navigator]);
 
@@ -80,14 +68,10 @@ export function App() {
       <header className="head">
         <h1>route-navigation-engine</h1>
         <p>
-          A simulated GPS stream feeding the real <code>RouteNavigator</code>.
-          Drag the driver sideways to leave the route and watch off-route
-          detection, then rerouting, kick in.
+          A simulated GPS stream feeding the real <code>RouteNavigator</code>. Drag the driver
+          sideways to leave the route and watch off-route detection, then rerouting, kick in.
         </p>
-        <a
-          className="repo-link"
-          href="https://github.com/rozenkoyaroslav/route-navigation-engine"
-        >
+        <a className="repo-link" href="https://github.com/rozenkoyaroslav/route-navigation-engine">
           Source on GitHub →
         </a>
       </header>
@@ -104,11 +88,7 @@ export function App() {
           />
 
           <div className="controls">
-            <button
-              className="play"
-              onClick={() => setPlaying((p) => !p)}
-              type="button"
-            >
+            <button className="play" onClick={() => setPlaying((p) => !p)} type="button">
               {playing ? '❚❚ Pause' : '▶ Drive'}
             </button>
 
@@ -156,26 +136,14 @@ export function App() {
             <p className="instruction">{state?.instruction ?? '…'}</p>
             {state?.distanceToManeuverMeters !== null &&
             state?.distanceToManeuverMeters !== undefined ? (
-              <p className="in-meters">
-                in {formatMeters(state.distanceToManeuverMeters)}
-              </p>
+              <p className="in-meters">in {formatMeters(state.distanceToManeuverMeters)}</p>
             ) : null}
           </div>
 
           <dl className="stats">
-            <Stat
-              label="Remaining"
-              value={formatMeters(state?.distanceRemainingMeters ?? 0)}
-            />
-            <Stat
-              label="ETA"
-              value={`${state?.eta.minutes ?? 0} min`}
-              note={state?.eta.source}
-            />
-            <Stat
-              label="Progress"
-              value={`${((state?.progress ?? 0) * 100).toFixed(0)}%`}
-            />
+            <Stat label="Remaining" value={formatMeters(state?.distanceRemainingMeters ?? 0)} />
+            <Stat label="ETA" value={`${state?.eta.minutes ?? 0} min`} note={state?.eta.source} />
+            <Stat label="Progress" value={`${((state?.progress ?? 0) * 100).toFixed(0)}%`} />
             <Stat
               label="Speed"
               value={`${((state?.speedMps ?? 0) * 3.6).toFixed(0)} km/h`}
@@ -196,9 +164,7 @@ export function App() {
           <div className="events">
             <h2>Driving events</h2>
             {events.length === 0 ? (
-              <p className="empty">
-                None yet — swing the speed slider hard to trigger one.
-              </p>
+              <p className="empty">None yet — swing the speed slider hard to trigger one.</p>
             ) : (
               <ul>
                 {events.map((e, i) => (
@@ -214,9 +180,7 @@ export function App() {
 }
 
 function formatMeters(meters: number): string {
-  return meters >= 1000
-    ? `${(meters / 1000).toFixed(1)} km`
-    : `${Math.round(meters)} m`;
+  return meters >= 1000 ? `${(meters / 1000).toFixed(1)} km` : `${Math.round(meters)} m`;
 }
 
 interface RangeProps {

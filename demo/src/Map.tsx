@@ -17,14 +17,7 @@ const PAD = 34;
  * Deliberately not a map library: the point of the demo is the engine's output,
  * and an SVG keeps the page dependency-free and instant to load.
  */
-export function Map({
-  route,
-  ahead,
-  driver,
-  snapped,
-  maneuverVertex,
-  isOffRoute,
-}: MapProps) {
+export function Map({ route, ahead, driver, snapped, maneuverVertex, isOffRoute }: MapProps) {
   const bounds = getBounds([...route, driver]);
   const p = (point: LatLng) => project(point, bounds);
 
@@ -33,9 +26,7 @@ export function Map({
   const driverXY = p(driver);
   const snappedXY = snapped ? p(snapped) : null;
   const maneuverXY =
-    maneuverVertex !== null && route[maneuverVertex]
-      ? p(route[maneuverVertex])
-      : null;
+    maneuverVertex !== null && route[maneuverVertex] ? p(route[maneuverVertex]) : null;
 
   return (
     <svg
@@ -53,12 +44,7 @@ export function Map({
       })}
 
       {maneuverXY ? (
-        <circle
-          className="maneuver-marker"
-          cx={maneuverXY.x}
-          cy={maneuverXY.y}
-          r={9}
-        />
+        <circle className="maneuver-marker" cx={maneuverXY.x} cy={maneuverXY.y} r={9} />
       ) : null}
 
       {snappedXY && isOffRoute ? (

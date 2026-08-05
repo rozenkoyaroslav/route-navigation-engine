@@ -46,11 +46,8 @@ export function pointAtFraction(
       const t = lengths[i] === 0 ? 0 : (target - walked) / lengths[i];
       return {
         point: {
-          latitude:
-            route[i].latitude + (route[i + 1].latitude - route[i].latitude) * t,
-          longitude:
-            route[i].longitude +
-            (route[i + 1].longitude - route[i].longitude) * t,
+          latitude: route[i].latitude + (route[i + 1].latitude - route[i].latitude) * t,
+          longitude: route[i].longitude + (route[i + 1].longitude - route[i].longitude) * t,
         },
         bearingSourceIndex: i,
       };
@@ -84,17 +81,11 @@ export function offsetPerpendicular(
 
   return {
     latitude: point.latitude + perpLat * meters * degPerMeter,
-    longitude:
-      point.longitude +
-      (perpLng * meters * degPerMeter) / lngScale(point.latitude),
+    longitude: point.longitude + (perpLng * meters * degPerMeter) / lngScale(point.latitude),
   };
 }
 
-const lngScale = (latitude: number): number =>
-  Math.cos((latitude * Math.PI) / 180) || 1;
+const lngScale = (latitude: number): number => Math.cos((latitude * Math.PI) / 180) || 1;
 
 const planarDistance = (a: LatLng, b: LatLng): number =>
-  Math.hypot(
-    b.latitude - a.latitude,
-    (b.longitude - a.longitude) * lngScale(a.latitude),
-  );
+  Math.hypot(b.latitude - a.latitude, (b.longitude - a.longitude) * lngScale(a.latitude));
