@@ -1,0 +1,284 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --panel-2: #1e222b;
+  --line: #2a2f3a;
+  --text: #e6e8ec;
+  --muted: #9aa3b2;
+  --accent: #6ea8fe;
+  --warn: #f0724a;
+  --done: #3f4654;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --panel-2: #f0f2f5;
+    --line: #e2e5ea;
+    --text: #1a1d23;
+    --muted: #5c6673;
+    --accent: #1f6feb;
+    --warn: #d64520;
+    --done: #c7ccd4;
+    color-scheme: light;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.head h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.head p {
+  margin: 0 0 0.75rem;
+  max-width: 64ch;
+  color: var(--muted);
+}
+
+.repo-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.repo-link:hover {
+  text-decoration: underline;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 340px);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stage,
+.hud > * {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.stage {
+  padding: 1rem;
+}
+
+.map {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--panel-2);
+  border-radius: 8px;
+}
+
+.route-behind {
+  fill: none;
+  stroke: var(--done);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.route-ahead {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.vertex {
+  fill: var(--muted);
+}
+
+.maneuver-marker {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  opacity: 0.85;
+}
+
+.snap-link {
+  stroke: var(--warn);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.snap-dot {
+  fill: var(--warn);
+}
+
+.driver {
+  fill: var(--accent);
+  stroke: var(--bg);
+  stroke-width: 2.5;
+}
+
+.driver-off {
+  fill: var(--warn);
+}
+
+.controls {
+  margin-top: 1rem;
+}
+
+.play {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  background: var(--accent);
+  color: #0f1115;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.play:hover {
+  filter: brightness(1.08);
+}
+
+.range + .range {
+  margin-top: 0.9rem;
+}
+
+.range-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+  font-size: 0.88rem;
+}
+
+.range-head output {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.range input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.hud {
+  display: grid;
+  gap: 1rem;
+}
+
+.banner {
+  padding: 1rem 1.15rem;
+  border-left: 3px solid var(--accent);
+}
+
+.banner-warn {
+  border-left-color: var(--warn);
+}
+
+.instruction {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.in-meters {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.stats {
+  margin: 0;
+  padding: 0.5rem 0.35rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.15rem;
+}
+
+.stat {
+  padding: 0.55rem 0.8rem;
+}
+
+.stat dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.stat dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-warn dd {
+  color: var(--warn);
+}
+
+.note {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.events {
+  padding: 0.9rem 1.15rem 1.1rem;
+}
+
+.events h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.events ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.empty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+code {
+  background: var(--panel-2);
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.9em;
+}
